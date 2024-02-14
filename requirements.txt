@@ -1,4 +1,2 @@
-h5py==2.8.0rc1
-Keras==2.1.6
-tqdm==4.23.4
-unittest2==1.1.0
+keras==3.0.4
+tqdm==4.66.2
