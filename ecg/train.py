@@ -25,7 +25,7 @@ def make_save_dir(dirname, experiment_name):
 
 def get_filename_for_saving(save_dir):
     return os.path.join(save_dir,
-            "{val_loss:.3f}-{val_acc:.3f}-{epoch:03d}-{loss:.3f}-{acc:.3f}.hdf5")
+            "{val_loss:.3f}-{val_acc:.3f}-{epoch:03d}-{loss:.3f}-{acc:.3f}.keras")
 
 def train(args, params):
 
@@ -63,10 +63,11 @@ def train(args, params):
 
     batch_size = params.get("batch_size", 32)
 
+    print(params)
     if params.get("generator", False):
         train_gen = load.data_generator(batch_size, preproc, *train)
         dev_gen = load.data_generator(batch_size, preproc, *dev)
-        model.fit_generator(
+        model.fit(
             train_gen,
             steps_per_epoch=int(len(train[0]) / batch_size),
             epochs=MAX_EPOCHS,

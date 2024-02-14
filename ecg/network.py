@@ -1,4 +1,4 @@
-from keras import backend as K
+import keras.ops as K
 
 def _bn_relu(layer, dropout=0, **params):
     from keras.layers import BatchNormalization
@@ -47,7 +47,7 @@ def resnet_block(
         **params):
     from keras.layers import Add 
     from keras.layers import MaxPooling1D
-    from keras.layers.core import Lambda
+    from keras.layers import Lambda
 
     def zeropad(x):
         y = K.zeros_like(x)
@@ -105,15 +105,15 @@ def add_resnet_layers(layer, **params):
     return layer
 
 def add_output_layer(layer, **params):
-    from keras.layers.core import Dense, Activation
-    from keras.layers.wrappers import TimeDistributed
+    from keras.layers import Dense, Activation
+    from keras.layers import TimeDistributed
     layer = TimeDistributed(Dense(params["num_categories"]))(layer)
     return Activation('softmax')(layer)
 
 def add_compile(model, **params):
     from keras.optimizers import Adam
     optimizer = Adam(
-        lr=params["learning_rate"],
+        learning_rate=params["learning_rate"],
         clipnorm=params.get("clipnorm", 1))
 
     model.compile(loss='categorical_crossentropy',

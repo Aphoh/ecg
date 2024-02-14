@@ -1,7 +1,3 @@
-from __future__ import print_function
-from __future__ import division
-from __future__ import absolute_import
-
 import json
 import keras
 import numpy as np
@@ -45,7 +41,7 @@ class Preproc:
     def process_y(self, y):
         # TODO, awni, fix hack pad with noise for cinc
         y = pad([[self.class_to_int[c] for c in s] for s in y], val=3, dtype=np.int32) 
-        y = keras.utils.np_utils.to_categorical(
+        y = keras.utils.to_categorical(
                 y, num_classes=len(self.classes))
         return y
 
